@@ -33,10 +33,12 @@
                 <label class="form-check-label">
                     @if (Model.IsAdmin)
                     {
+
                         <input class="form-check-input" asp-for="IsApproved" /> @Html.DisplayNameFor(model => model.IsApproved)
                     }
                     else
                     {
+                        @Html.HiddenFor(model => model.IsApproved)
                         <input class="form-check-input" asp-for="IsApproved" disabled="disabled" /> @Html.DisplayNameFor(model => model.IsApproved)
                     }
                 </label>
