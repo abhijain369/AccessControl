@@ -1,4 +1,8 @@
-﻿@model AccessControl.Models.ExpenseModel
+﻿@using System.Text.Encodings.Web
+
+@model AccessControl.Models.ExpenseModel
+
+@inject JavaScriptEncoder JavaScriptEncoder
 
 @{
     ViewData["Title"] = "Edit";
@@ -44,7 +48,8 @@
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" onclick="alert('Saving expense for category @Model.Category')" />
+                @*<input type="submit" value="Save" class="btn btn-primary" onclick="alert('Saving expense for category @JavaScriptEncoder.Encode(Model.Category)')" />*@
             </div>
         </form>
     </div>

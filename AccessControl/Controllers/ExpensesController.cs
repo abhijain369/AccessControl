@@ -49,6 +49,39 @@ namespace AccessControl.Controllers
             return View(expense);
         }
 
+
+        public async Task<IActionResult> DetailsVulnerable(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var query = ("SELECT * from Expense where ExpenseId = " + id);
+            Expense expense = new Expense();
+            using (var command = _context.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = query;
+                _context.Database.OpenConnection();
+                using (var result = command.ExecuteReader())
+                {
+                    if (result.Read()) 
+                    {
+                        expense.ExpenseId = result.GetInt32(result.GetOrdinal("ExpenseId"));
+                        expense.Category = result.GetString(result.GetOrdinal("Category"));
+                    }
+                }
+            }
+
+            if (expense == null)
+            {
+                return NotFound();
+            }
+
+            return View("Details", expense);
+        }
+
+
         // GET: Expenses/Create
         public IActionResult Create()
         {
